@@ -30,7 +30,6 @@ public class CurrencyConverterGUI extends JFrame {
 
         initRates();
         initFlags();
-        initGameData();
         setupUI();
     }
 
@@ -52,7 +51,6 @@ public class CurrencyConverterGUI extends JFrame {
         JButton gameBtn = new JButton("🎮 Guess Currency");
 
         convertBtn.addActionListener(e -> convert());
-        gameBtn.addActionListener(e -> startGuessGame());
 
         setDarkButton(convertBtn);
         setDarkButton(gameBtn);
@@ -124,42 +122,9 @@ public class CurrencyConverterGUI extends JFrame {
         return list.toArray(new String[0]);
     }
 
-
-
     private String extractCurrencyCode(String displayString) {
         String[] parts = displayString.split(" ");
         return parts[1];
-    }
-
-    private void startGuessGame() {
-        List<String> countries = new ArrayList<>(countryCurrency.keySet());
-        Collections.shuffle(countries);
-        int score = 0;
-
-        for (int i = 0; i < 5; i++) {
-            if (i >= countries.size()) break;
-            String country = countries.get(i);
-            String correctCurrency = countryCurrency.get(country);
-
-            String answer = JOptionPane.showInputDialog(this,
-                    "💡 What is the currency code of " + country + "?");
-
-            if (answer == null) {
-                break; 
-            }
-            
-            answer = answer.toUpperCase();
-
-            if (answer.equals(correctCurrency)) {
-                JOptionPane.showMessageDialog(this, "✅ Correct!");
-                score++;
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "❌ Wrong! The correct answer is: " + correctCurrency);
-            }
-        }
-
-        JOptionPane.showMessageDialog(this, "🎯 Your Score: " + score + "/5");
     }
 
     private void initRates() {
