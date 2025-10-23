@@ -34,8 +34,8 @@ public class CurrencyConverterApp extends JFrame {
         exchangeRates.put("EUR(EURO)", 0.92);
         exchangeRates.put("GBP(British Pound)", 0.79);
         exchangeRates.put("JPY(JAPANESE Yen)", 149.50);
-        exchangeRates.put("CAD", 1.36);
-        exchangeRates.put("AUD", 1.53);
+        exchangeRates.put("CAD(CANDIAN DOLLARS)", 1.36);
+        exchangeRates.put("AUD(AUSTRALIAN DOLLARS)", 1.53);
         exchangeRates.put("CHF", 0.88);
         exchangeRates.put("CNY", 7.24);
         exchangeRates.put("INR", 83.12);
