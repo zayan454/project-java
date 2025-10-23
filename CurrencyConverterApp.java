@@ -122,7 +122,7 @@ public class CurrencyConverterApp extends JFrame {
         inputPanel.add(amountLabel, gbc);
 
         gbc.gridx = 1; gbc.weightx = 1.0;
-        amountField = new JTextField("100   ");
+        amountField = new JTextField("100 ");
         amountField.setFont(new Font("Roboto", Font.BOLD, 16));
         amountField.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 1),
