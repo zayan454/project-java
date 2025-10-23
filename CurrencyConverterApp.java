@@ -20,107 +20,32 @@ public class CurrencyConverterApp extends JFrame {
     private JPanel multiConvertPanel;
     private DecimalFormat df;
 
-private void initializeExchangeRates() {
-    exchangeRates = new HashMap<>();
+    public CurrencyConverterApp() {
+        df = new DecimalFormat("#,##0.00");
+        favoritePairs = new HashSet<>();
+        initializeExchangeRates();
+        initializeUI();
+    }
 
-    // Base reference
-    exchangeRates.put("USD (US DOLLARS)", 1.0);
-
-    // Major currencies
-    exchangeRates.put("EUR (EURO)", 0.92);
-    exchangeRates.put("GBP (BRITISH POUND)", 0.79);
-    exchangeRates.put("JPY (JAPANESE YEN)", 149.50);
-    exchangeRates.put("CAD (CANADIAN DOLLAR)", 1.36);
-    exchangeRates.put("AUD (AUSTRALIAN DOLLAR)", 1.53);
-    exchangeRates.put("CHF (SWISS FRANC)", 0.88);
-    exchangeRates.put("CNY (CHINESE YUAN)", 7.24);
-    exchangeRates.put("INR (INDIAN RUPEE)", 83.12);
-    exchangeRates.put("NZD (NEW ZEALAND DOLLAR)", 1.67);
-    exchangeRates.put("SGD (SINGAPORE DOLLAR)", 1.34);
-    exchangeRates.put("HKD (HONG KONG DOLLAR)", 7.80);
-    exchangeRates.put("SEK (SWEDISH KRONA)", 10.70);
-    exchangeRates.put("NOK (NORWEGIAN KRONE)", 10.90);
-    exchangeRates.put("DKK (DANISH KRONE)", 6.88);
-    exchangeRates.put("KRW (SOUTH KOREAN WON)", 1338.50);
-    exchangeRates.put("MXN (MEXICAN PESO)", 17.08);
-    exchangeRates.put("BRL (BRAZILIAN REAL)", 4.98);
-    exchangeRates.put("ZAR (SOUTH AFRICAN RAND)", 18.65);
-    exchangeRates.put("SAR (SAUDI RIYAL)", 3.75);
-    exchangeRates.put("AED (UAE DIRHAM)", 3.67);
-    exchangeRates.put("TRY (TURKISH LIRA)", 33.00);
-    exchangeRates.put("RUB (RUSSIAN RUBLE)", 95.40);
-
-    // Asian & Middle Eastern
-    exchangeRates.put("PKR (PAKISTANI RUPEE)", 277.00);
-    exchangeRates.put("BDT (BANGLADESHI TAKA)", 118.50);
-    exchangeRates.put("LKR (SRI LANKAN RUPEE)", 304.00);
-    exchangeRates.put("NPR (NEPALESE RUPEE)", 132.60);
-    exchangeRates.put("THB (THAI BAHT)", 36.60);
-    exchangeRates.put("MYR (MALAYSIAN RINGGIT)", 4.77);
-    exchangeRates.put("IDR (INDONESIAN RUPIAH)", 15700.00);
-    exchangeRates.put("VND (VIETNAMESE DONG)", 24400.00);
-    exchangeRates.put("ILS (ISRAELI SHEKEL)", 3.85);
-    exchangeRates.put("QAR (QATARI RIYAL)", 3.64);
-    exchangeRates.put("KWD (KUWAITI DINAR)", 0.31);
-    exchangeRates.put("BHD (BAHRAINI DINAR)", 0.38);
-    exchangeRates.put("OMR (OMANI RIAL)", 0.39);
-    exchangeRates.put("JOD (JORDANIAN DINAR)", 0.71);
-
-    // European fringe
-    exchangeRates.put("PLN (POLISH ZLOTY)", 4.04);
-    exchangeRates.put("CZK (CZECH KORUNA)", 23.30);
-    exchangeRates.put("HUF (HUNGARIAN FORINT)", 364.00);
-    exchangeRates.put("RON (ROMANIAN LEU)", 4.57);
-    exchangeRates.put("BGN (BULGARIAN LEV)", 1.80);
-    exchangeRates.put("HRK (CROATIAN KUNA)", 7.05);
-    exchangeRates.put("UAH (UKRAINIAN HRYVNIA)", 40.20);
-    exchangeRates.put("ISK (ICELANDIC KRONA)", 138.60);
-
-    // Africa
-    exchangeRates.put("EGP (EGYPTIAN POUND)", 48.00);
-    exchangeRates.put("KES (KENYAN SHILLING)", 130.50);
-    exchangeRates.put("NGN (NIGERIAN NAIRA)", 1560.00);
-    exchangeRates.put("GHS (GHANAIAN CEDI)", 15.30);
-    exchangeRates.put("MAD (MOROCCAN DIRHAM)", 10.00);
-    exchangeRates.put("TND (TUNISIAN DINAR)", 3.10);
-    exchangeRates.put("ETB (ETHIOPIAN BIRR)", 114.00);
-
-    // Americas
-    exchangeRates.put("ARS (ARGENTINE PESO)", 960.00);
-    exchangeRates.put("CLP (CHILEAN PESO)", 950.00);
-    exchangeRates.put("COP (COLOMBIAN PESO)", 4090.00);
-    exchangeRates.put("PEN (PERUVIAN SOL)", 3.72);
-    exchangeRates.put("UYU (URUGUAYAN PESO)", 41.00);
-    exchangeRates.put("VEF (VENEZUELAN BOLIVAR)", 36.00);
-    exchangeRates.put("DOP (DOMINICAN PESO)", 59.00);
-    exchangeRates.put("CRC (COSTA RICAN COLON)", 524.00);
-
-    // Pacific islands & Oceania
-    exchangeRates.put("FJD (FIJIAN DOLLAR)", 2.26);
-    exchangeRates.put("PGK (PAPUA NEW GUINEA KINA)", 3.78);
-    exchangeRates.put("SBD (SOLOMON ISLANDS DOLLAR)", 8.35);
-    exchangeRates.put("TOP (TONGAN PA’ANGA)", 2.40);
-    exchangeRates.put("WST (SAMOAN TALA)", 2.80);
-    exchangeRates.put("VUV (VANUATU VATU)", 119.00);
-
-    // Exotic & crypto-style tokens (for show)
-    exchangeRates.put("XOF (WEST AFRICAN CFA FRANC)", 604.00);
-    exchangeRates.put("XAF (CENTRAL AFRICAN CFA FRANC)", 604.00);
-    exchangeRates.put("XCD (EAST CARIBBEAN DOLLAR)", 2.70);
-    exchangeRates.put("BSD (BAHAMIAN DOLLAR)", 1.00);
-    exchangeRates.put("BBD (BARBADIAN DOLLAR)", 2.00);
-    exchangeRates.put("TTD (TRINIDAD & TOBAGO DOLLAR)", 6.80);
-    exchangeRates.put("JMD (JAMAICAN DOLLAR)", 156.00);
-    exchangeRates.put("KYD (CAYMAN ISLANDS DOLLAR)", 0.82);
-    exchangeRates.put("BZD (BELIZE DOLLAR)", 2.00);
-    exchangeRates.put("ANG (NETHERLANDS ANTILLEAN GUILDER)", 1.79);
-    exchangeRates.put("HTG (HAITIAN GOURDE)", 132.00);
-    exchangeRates.put("SRD (SURINAMESE DOLLAR)", 37.50);
-    exchangeRates.put("MWK (MALAWIAN KWACHA)", 1740.00);
-    exchangeRates.put("ZMW (ZAMBIAN KWACHA)", 26.00);
-    exchangeRates.put("MUR (MAURITIAN RUPEE)", 46.00);
-    exchangeRates.put("SCR (SEYCHELLES RUPEE)", 14.00);
-}
+    private void initializeExchangeRates() {
+        exchangeRates = new HashMap<>();
+        exchangeRates.put("USD (US DOLLARS)", 1.0);
+        exchangeRates.put("EUR (EURO)", 0.92);
+        exchangeRates.put("GBP (BRITISH POUND)", 0.79);
+        exchangeRates.put("JPY (JAPANESE YEN)", 149.50);
+        exchangeRates.put("CAD (CANADIAN DOLLAR)", 1.36);
+        exchangeRates.put("AUD (AUSTRALIAN DOLLAR)", 1.53);
+        exchangeRates.put("CHF (SWISS FRANC)", 0.88);
+        exchangeRates.put("CNY (CHINESE YUAN)", 7.24);
+        exchangeRates.put("INR (INDIAN RUPEE)", 83.12);
+        exchangeRates.put("MXN (MEXICAN PESO)", 17.08);
+        exchangeRates.put("BRL (BRAZILIAN REAL)", 4.98);
+        exchangeRates.put("ZAR (SOUTH AFRICAN RAND)", 18.65);
+        exchangeRates.put("KRW (SOUTH KOREAN WON)", 1338.50);
+        exchangeRates.put("SGD (SINGAPORE DOLLAR)", 1.34);
+        exchangeRates.put("NZD (NEW ZEALAND DOLLAR)", 1.67);
+        exchangeRates.put("SAR (SAUDI RIYAL)", 3.75);
+    }
 
     private void initializeUI() {
         setTitle("Currency Converter");
@@ -140,7 +65,6 @@ private void initializeExchangeRates() {
         tabbedPane.addTab("Converter", createConverterPanel());
         tabbedPane.addTab("Multi-Convert", createMultiConvertPanel());
         tabbedPane.addTab("History", createHistoryPanel());
-        tabbedPane.addTab("Favorites", createFavoritesPanel());
 
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
         add(mainPanel);
@@ -150,6 +74,7 @@ private void initializeExchangeRates() {
     private JPanel createHeader() {
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(Color.BLACK);
+        setIconImage(new ImageIcon("icon.jpeg").getImage());
         header.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         JLabel title = new JLabel("CURRENCY CONVERTER");
