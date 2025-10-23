@@ -30,21 +30,22 @@ public class CurrencyConverterApp extends JFrame {
     private void initializeExchangeRates() {
         // Base currency: USD
         exchangeRates = new HashMap<>();
-        exchangeRates.put("USD(US DOLLARS)", 1.0);
-        exchangeRates.put("EUR(EURO)", 0.92);
-        exchangeRates.put("GBP(British Pound)", 0.79);
-        exchangeRates.put("JPY(JAPANESE Yen)", 149.50);
-        exchangeRates.put("CAD(CANDIAN DOLLARS)", 1.36);
-        exchangeRates.put("AUD(AUSTRALIAN DOLLARS)", 1.53);
-        exchangeRates.put("CHF", 0.88);
-        exchangeRates.put("CNY", 7.24);
-        exchangeRates.put("INR", 83.12);
-        exchangeRates.put("MXN", 17.08);
-        exchangeRates.put("BRL", 4.98);
-        exchangeRates.put("ZAR", 18.65);
-        exchangeRates.put("KRW", 1338.50);
-        exchangeRates.put("SGD", 1.34);
-        exchangeRates.put("NZD", 1.67);
+       exchangeRates.put("USD(US DOLLARS)", 1.0);
+       exchangeRates.put("EUR(EURO)", 0.92);
+       exchangeRates.put("GBP(BRITISH POUND)", 0.79);
+       exchangeRates.put("JPY(JAPANESE YEN)", 149.50);
+       exchangeRates.put("CAD(CANADIAN DOLLAR)", 1.36);
+       exchangeRates.put("AUD(AUSTRALIAN DOLLAR)", 1.53);
+       exchangeRates.put("CHF(SWISS FRANC)", 0.88);
+       exchangeRates.put("CNY(CHINESE YUAN)", 7.24);
+       exchangeRates.put("INR(INDIAN RUPEE)", 83.12);
+       exchangeRates.put("MXN(MEXICAN PESO)", 17.08);
+       exchangeRates.put("BRL(BRAZILIAN REAL)", 4.98);
+       exchangeRates.put("ZAR(SOUTH AFRICAN RAND)", 18.65);
+       exchangeRates.put("KRW(SOUTH KOREAN WON)", 1338.50);
+       exchangeRates.put("SGD(SINGAPORE DOLLAR)", 1.34);
+       exchangeRates.put("NZD(NEW ZEALAND DOLLAR)", 1.67);
+       exchangeRates.put("SAR(SAUDI RIYAL)", 3.75);
     }
 
     private void initializeUI() {
