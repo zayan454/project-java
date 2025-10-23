@@ -149,7 +149,7 @@ public class CurrencyConverterApp extends JFrame {
         // Swap Button
         gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2;
         JButton swapButton = new JButton("SWAP");
-        swapButton.setFont(new Font("Arial", Font.BOLD, 20));
+        swapButton.setFont(new Font("SANS-SERIF", Font.BOLD, 20));
         swapButton.setBackground(Color.WHITE);
         swapButton.setForeground(Color.BLACK);
         swapButton.setFocusPainted(false);
@@ -216,7 +216,7 @@ public class CurrencyConverterApp extends JFrame {
         JButton multiConvertBtn = new JButton("CONVERT ALL");
         multiConvertBtn.setFont(new Font("Arial", Font.BOLD, 12));
         multiConvertBtn.setBackground(Color.BLACK);
-        multiConvertBtn.setForeground(Color.WHITE);
+        multiConvertBtn.setForeground(Color.BLACK);
         multiConvertBtn.setFocusPainted(false);
         multiConvertBtn.addActionListener(e -> performMultiConversion());
         topPanel.add(multiConvertBtn);
@@ -253,7 +253,7 @@ public class CurrencyConverterApp extends JFrame {
         historyTable.setShowGrid(true);
         historyTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
         historyTable.getTableHeader().setBackground(Color.BLACK);
-        historyTable.getTableHeader().setForeground(Color.WHITE);
+        historyTable.getTableHeader().setForeground(Color.BLACK);
         historyTable.setSelectionBackground(Color.LIGHT_GRAY);
         historyTable.setSelectionForeground(Color.BLACK);
 
@@ -267,7 +267,7 @@ public class CurrencyConverterApp extends JFrame {
         JButton clearButton = new JButton("CLEAR HISTORY");
         clearButton.setFont(new Font("Arial", Font.BOLD, 12));
         clearButton.setBackground(Color.BLACK);
-        clearButton.setForeground(Color.WHITE);
+        clearButton.setForeground(Color.BLACK);
         clearButton.setFocusPainted(false);
         clearButton.addActionListener(e -> historyTableModel.setRowCount(0));
         buttonPanel.add(clearButton);
