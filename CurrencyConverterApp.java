@@ -30,10 +30,10 @@ public class CurrencyConverterApp extends JFrame {
     private void initializeExchangeRates() {
         // Base currency: USD
         exchangeRates = new HashMap<>();
-        exchangeRates.put("USD(US DOLLAR)", 1.0);
-        exchangeRates.put("EUR", 0.92);
-        exchangeRates.put("GBP", 0.79);
-        exchangeRates.put("JPY", 149.50);
+        exchangeRates.put("USD(US DOLLARS)", 1.0);
+        exchangeRates.put("EUR(EURO)", 0.92);
+        exchangeRates.put("GBP(British Pound)", 0.79);
+        exchangeRates.put("JPY(JAPANESE Yen)", 149.50);
         exchangeRates.put("CAD", 1.36);
         exchangeRates.put("AUD", 1.53);
         exchangeRates.put("CHF", 0.88);
