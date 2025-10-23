@@ -131,7 +131,7 @@ public class CurrencyConverterGUI extends JFrame {
         rates.put("AUD", 1.55);
     }
 
-    private void initFlags() {
+    private void initFlags() {  
         countryFlags.put("USD", "🇺🇸");
         countryFlags.put("EUR", "🇪🇺");
         countryFlags.put("INR", "🇮🇳");
