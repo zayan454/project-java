@@ -20,33 +20,107 @@ public class CurrencyConverterApp extends JFrame {
     private JPanel multiConvertPanel;
     private DecimalFormat df;
 
-    public CurrencyConverterApp() {
-        df = new DecimalFormat("#,##0.00");
-        favoritePairs = new HashSet<>();
-        initializeExchangeRates();
-        initializeUI();
-    }
+private void initializeExchangeRates() {
+    exchangeRates = new HashMap<>();
 
-    private void initializeExchangeRates() {
-        // Base currency: USD
-        exchangeRates = new HashMap<>();
-       exchangeRates.put("USD(US DOLLARS)", 1.0);
-       exchangeRates.put("EUR(EURO)", 0.92);
-       exchangeRates.put("GBP(BRITISH POUND)", 0.79);
-       exchangeRates.put("JPY(JAPANESE YEN)", 149.50);
-       exchangeRates.put("CAD(CANADIAN DOLLAR)", 1.36);
-       exchangeRates.put("AUD(AUSTRALIAN DOLLAR)", 1.53);
-       exchangeRates.put("CHF(SWISS FRANC)", 0.88);
-       exchangeRates.put("CNY(CHINESE YUAN)", 7.24);
-       exchangeRates.put("INR(INDIAN RUPEE)", 83.12);
-       exchangeRates.put("MXN(MEXICAN PESO)", 17.08);
-       exchangeRates.put("BRL(BRAZILIAN REAL)", 4.98);
-       exchangeRates.put("ZAR(SOUTH AFRICAN RAND)", 18.65);
-       exchangeRates.put("KRW(SOUTH KOREAN WON)", 1338.50);
-       exchangeRates.put("SGD(SINGAPORE DOLLAR)", 1.34);
-       exchangeRates.put("NZD(NEW ZEALAND DOLLAR)", 1.67);
-       exchangeRates.put("SAR(SAUDI RIYAL)", 3.75);
-    }
+    // Base reference
+    exchangeRates.put("USD (US DOLLARS)", 1.0);
+
+    // Major currencies
+    exchangeRates.put("EUR (EURO)", 0.92);
+    exchangeRates.put("GBP (BRITISH POUND)", 0.79);
+    exchangeRates.put("JPY (JAPANESE YEN)", 149.50);
+    exchangeRates.put("CAD (CANADIAN DOLLAR)", 1.36);
+    exchangeRates.put("AUD (AUSTRALIAN DOLLAR)", 1.53);
+    exchangeRates.put("CHF (SWISS FRANC)", 0.88);
+    exchangeRates.put("CNY (CHINESE YUAN)", 7.24);
+    exchangeRates.put("INR (INDIAN RUPEE)", 83.12);
+    exchangeRates.put("NZD (NEW ZEALAND DOLLAR)", 1.67);
+    exchangeRates.put("SGD (SINGAPORE DOLLAR)", 1.34);
+    exchangeRates.put("HKD (HONG KONG DOLLAR)", 7.80);
+    exchangeRates.put("SEK (SWEDISH KRONA)", 10.70);
+    exchangeRates.put("NOK (NORWEGIAN KRONE)", 10.90);
+    exchangeRates.put("DKK (DANISH KRONE)", 6.88);
+    exchangeRates.put("KRW (SOUTH KOREAN WON)", 1338.50);
+    exchangeRates.put("MXN (MEXICAN PESO)", 17.08);
+    exchangeRates.put("BRL (BRAZILIAN REAL)", 4.98);
+    exchangeRates.put("ZAR (SOUTH AFRICAN RAND)", 18.65);
+    exchangeRates.put("SAR (SAUDI RIYAL)", 3.75);
+    exchangeRates.put("AED (UAE DIRHAM)", 3.67);
+    exchangeRates.put("TRY (TURKISH LIRA)", 33.00);
+    exchangeRates.put("RUB (RUSSIAN RUBLE)", 95.40);
+
+    // Asian & Middle Eastern
+    exchangeRates.put("PKR (PAKISTANI RUPEE)", 277.00);
+    exchangeRates.put("BDT (BANGLADESHI TAKA)", 118.50);
+    exchangeRates.put("LKR (SRI LANKAN RUPEE)", 304.00);
+    exchangeRates.put("NPR (NEPALESE RUPEE)", 132.60);
+    exchangeRates.put("THB (THAI BAHT)", 36.60);
+    exchangeRates.put("MYR (MALAYSIAN RINGGIT)", 4.77);
+    exchangeRates.put("IDR (INDONESIAN RUPIAH)", 15700.00);
+    exchangeRates.put("VND (VIETNAMESE DONG)", 24400.00);
+    exchangeRates.put("ILS (ISRAELI SHEKEL)", 3.85);
+    exchangeRates.put("QAR (QATARI RIYAL)", 3.64);
+    exchangeRates.put("KWD (KUWAITI DINAR)", 0.31);
+    exchangeRates.put("BHD (BAHRAINI DINAR)", 0.38);
+    exchangeRates.put("OMR (OMANI RIAL)", 0.39);
+    exchangeRates.put("JOD (JORDANIAN DINAR)", 0.71);
+
+    // European fringe
+    exchangeRates.put("PLN (POLISH ZLOTY)", 4.04);
+    exchangeRates.put("CZK (CZECH KORUNA)", 23.30);
+    exchangeRates.put("HUF (HUNGARIAN FORINT)", 364.00);
+    exchangeRates.put("RON (ROMANIAN LEU)", 4.57);
+    exchangeRates.put("BGN (BULGARIAN LEV)", 1.80);
+    exchangeRates.put("HRK (CROATIAN KUNA)", 7.05);
+    exchangeRates.put("UAH (UKRAINIAN HRYVNIA)", 40.20);
+    exchangeRates.put("ISK (ICELANDIC KRONA)", 138.60);
+
+    // Africa
+    exchangeRates.put("EGP (EGYPTIAN POUND)", 48.00);
+    exchangeRates.put("KES (KENYAN SHILLING)", 130.50);
+    exchangeRates.put("NGN (NIGERIAN NAIRA)", 1560.00);
+    exchangeRates.put("GHS (GHANAIAN CEDI)", 15.30);
+    exchangeRates.put("MAD (MOROCCAN DIRHAM)", 10.00);
+    exchangeRates.put("TND (TUNISIAN DINAR)", 3.10);
+    exchangeRates.put("ETB (ETHIOPIAN BIRR)", 114.00);
+
+    // Americas
+    exchangeRates.put("ARS (ARGENTINE PESO)", 960.00);
+    exchangeRates.put("CLP (CHILEAN PESO)", 950.00);
+    exchangeRates.put("COP (COLOMBIAN PESO)", 4090.00);
+    exchangeRates.put("PEN (PERUVIAN SOL)", 3.72);
+    exchangeRates.put("UYU (URUGUAYAN PESO)", 41.00);
+    exchangeRates.put("VEF (VENEZUELAN BOLIVAR)", 36.00);
+    exchangeRates.put("DOP (DOMINICAN PESO)", 59.00);
+    exchangeRates.put("CRC (COSTA RICAN COLON)", 524.00);
+
+    // Pacific islands & Oceania
+    exchangeRates.put("FJD (FIJIAN DOLLAR)", 2.26);
+    exchangeRates.put("PGK (PAPUA NEW GUINEA KINA)", 3.78);
+    exchangeRates.put("SBD (SOLOMON ISLANDS DOLLAR)", 8.35);
+    exchangeRates.put("TOP (TONGAN PA’ANGA)", 2.40);
+    exchangeRates.put("WST (SAMOAN TALA)", 2.80);
+    exchangeRates.put("VUV (VANUATU VATU)", 119.00);
+
+    // Exotic & crypto-style tokens (for show)
+    exchangeRates.put("XOF (WEST AFRICAN CFA FRANC)", 604.00);
+    exchangeRates.put("XAF (CENTRAL AFRICAN CFA FRANC)", 604.00);
+    exchangeRates.put("XCD (EAST CARIBBEAN DOLLAR)", 2.70);
+    exchangeRates.put("BSD (BAHAMIAN DOLLAR)", 1.00);
+    exchangeRates.put("BBD (BARBADIAN DOLLAR)", 2.00);
+    exchangeRates.put("TTD (TRINIDAD & TOBAGO DOLLAR)", 6.80);
+    exchangeRates.put("JMD (JAMAICAN DOLLAR)", 156.00);
+    exchangeRates.put("KYD (CAYMAN ISLANDS DOLLAR)", 0.82);
+    exchangeRates.put("BZD (BELIZE DOLLAR)", 2.00);
+    exchangeRates.put("ANG (NETHERLANDS ANTILLEAN GUILDER)", 1.79);
+    exchangeRates.put("HTG (HAITIAN GOURDE)", 132.00);
+    exchangeRates.put("SRD (SURINAMESE DOLLAR)", 37.50);
+    exchangeRates.put("MWK (MALAWIAN KWACHA)", 1740.00);
+    exchangeRates.put("ZMW (ZAMBIAN KWACHA)", 26.00);
+    exchangeRates.put("MUR (MAURITIAN RUPEE)", 46.00);
+    exchangeRates.put("SCR (SEYCHELLES RUPEE)", 14.00);
+}
 
     private void initializeUI() {
         setTitle("Currency Converter");
@@ -57,20 +131,18 @@ public class CurrencyConverterApp extends JFrame {
         JPanel mainPanel = new JPanel(new BorderLayout(0, 0));
         mainPanel.setBackground(Color.GRAY);
 
-        // Header
         mainPanel.add(createHeader(), BorderLayout.NORTH);
 
-        // Center content with tabs
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setBackground(Color.GRAY);
-        tabbedPane.setFont(new Font("Arial", Font.BOLD, 13));
-        
+        tabbedPane.setFont(new Font("Poppins", Font.BOLD, 13));
+
         tabbedPane.addTab("Converter", createConverterPanel());
         tabbedPane.addTab("Multi-Convert", createMultiConvertPanel());
         tabbedPane.addTab("History", createHistoryPanel());
+        tabbedPane.addTab("Favorites", createFavoritesPanel());
 
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
-
         add(mainPanel);
         setVisible(true);
     }
@@ -81,12 +153,12 @@ public class CurrencyConverterApp extends JFrame {
         header.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         JLabel title = new JLabel("CURRENCY CONVERTER");
-        title.setFont(new Font("Sans-Serif", Font.BOLD, 32));
+        title.setFont(new Font("Poppins", Font.BOLD, 32));
         title.setForeground(Color.WHITE);
 
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMMM dd, yyyy HH:mm");
         JLabel dateLabel = new JLabel(sdf.format(new Date()));
-        dateLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
+        dateLabel.setFont(new Font("Poppins", Font.PLAIN, 12));
         dateLabel.setForeground(Color.LIGHT_GRAY);
 
         JPanel textPanel = new JPanel(new BorderLayout(0, 5));
@@ -95,8 +167,39 @@ public class CurrencyConverterApp extends JFrame {
         textPanel.add(dateLabel, BorderLayout.SOUTH);
 
         header.add(textPanel, BorderLayout.WEST);
-
         return header;
+    }
+
+    private JButton createStyledButton(String text) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Poppins", Font.BOLD, 14));
+        button.setBackground(Color.BLACK);
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorder(new EmptyBorder(10, 20, 10, 20));
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button.setContentAreaFilled(false);
+        button.setOpaque(true);
+
+        button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                button.setBackground(new Color(30, 30, 30));
+            }
+
+            public void mouseExited(MouseEvent evt) {
+                button.setBackground(Color.BLACK);
+            }
+
+            public void mousePressed(MouseEvent evt) {
+                button.setBackground(new Color(60, 60, 60));
+            }
+
+            public void mouseReleased(MouseEvent evt) {
+                button.setBackground(new Color(30, 30, 30));
+            }
+        });
+
+        return button;
     }
 
     private JPanel createConverterPanel() {
@@ -104,96 +207,85 @@ public class CurrencyConverterApp extends JFrame {
         panel.setBackground(Color.WHITE);
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        // Input Panel
         JPanel inputPanel = new JPanel(new GridBagLayout());
         inputPanel.setBackground(Color.WHITE);
         inputPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.BLACK, 2),
-            new EmptyBorder(20, 20, 20, 20)
-        ));
+                BorderFactory.createLineBorder(Color.BLACK, 2),
+                new EmptyBorder(20, 20, 20, 20)));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        // Amount
-        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         JLabel amountLabel = new JLabel("Amount:");
-        amountLabel.setFont(new Font("Roboto", Font.BOLD, 16));
+        amountLabel.setFont(new Font("Poppins", Font.BOLD, 16));
         inputPanel.add(amountLabel, gbc);
 
-        gbc.gridx = 1; gbc.weightx = 1.0;
-        amountField = new JTextField("100 ");
-        amountField.setFont(new Font("Roboto", Font.BOLD, 16));
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        amountField = new JTextField("100");
+        amountField.setFont(new Font("Poppins", Font.PLAIN, 16));
         amountField.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.BLACK, 1),
-            new EmptyBorder(8, 10, 8, 10)
-        ));
+                BorderFactory.createLineBorder(Color.BLACK, 1),
+                new EmptyBorder(8, 10, 8, 10)));
         inputPanel.add(amountField, gbc);
 
-        // From Currency
-        gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         JLabel fromLabel = new JLabel("From:");
-        fromLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        fromLabel.setFont(new Font("Poppins", Font.BOLD, 14));
         inputPanel.add(fromLabel, gbc);
 
-        gbc.gridx = 1; gbc.weightx = 1.0;
+        gbc.gridx = 1;
         String[] currencies = exchangeRates.keySet().toArray(new String[0]);
         Arrays.sort(currencies);
         fromCurrency = new JComboBox<>(currencies);
-        fromCurrency.setFont(new Font("Arial", Font.PLAIN, 14));
+        fromCurrency.setFont(new Font("Poppins", Font.PLAIN, 14));
         fromCurrency.setBackground(Color.WHITE);
-        fromCurrency.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         inputPanel.add(fromCurrency, gbc);
 
-        // Swap Button
-        gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2;
-        JButton swapButton = new JButton("SWAP");
-        swapButton.setFont(new Font("SANS-SERIF", Font.BOLD, 20));
-        swapButton.setBackground(Color.WHITE);
-        swapButton.setForeground(Color.BLACK);
-        swapButton.setFocusPainted(false);
-        swapButton.setBorder(new EmptyBorder(10, 20, 10, 20));
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        JButton swapButton = createStyledButton("SWAP");
+        swapButton.setFont(new Font("Poppins", Font.BOLD, 16));
         swapButton.addActionListener(e -> swapCurrencies());
         inputPanel.add(swapButton, gbc);
 
-        // To Currency
-        gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 1; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
         JLabel toLabel = new JLabel("To:");
-        toLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        toLabel.setFont(new Font("Poppins", Font.BOLD, 14));
         inputPanel.add(toLabel, gbc);
 
-        gbc.gridx = 1; gbc.weightx = 1.0;
+        gbc.gridx = 1;
         toCurrency = new JComboBox<>(currencies);
-        toCurrency.setFont(new Font("Arial", Font.PLAIN, 14));
+        toCurrency.setFont(new Font("Poppins", Font.PLAIN, 14));
         toCurrency.setBackground(Color.WHITE);
-        toCurrency.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         toCurrency.setSelectedIndex(1);
         inputPanel.add(toCurrency, gbc);
 
-        // Convert Button
-        gbc.gridx = 0; gbc.gridy = 4; gbc.gridwidth = 2;
-        JButton convertButton = new JButton("CONVERT");
-        convertButton.setFont(new Font("Arial", Font.BOLD, 16));
-        convertButton.setBackground(Color.BLACK);
-        convertButton.setForeground(Color.WHITE);
-        convertButton.setFocusPainted(true);
-        convertButton.setBorder(new EmptyBorder(12, 30, 12, 30));
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        JButton convertButton = createStyledButton("CONVERT");
+        convertButton.setFont(new Font("Poppins", Font.BOLD, 16));
         convertButton.addActionListener(e -> performConversion());
         inputPanel.add(convertButton, gbc);
 
         panel.add(inputPanel, BorderLayout.NORTH);
 
-        // Result Area
         resultArea = new JTextArea();
         resultArea.setEditable(false);
-        resultArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        resultArea.setFont(new Font("Poppins", Font.PLAIN, 14));
         resultArea.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.BLACK, 2),
-            new EmptyBorder(15, 15, 15, 15)
-        ));
+                BorderFactory.createLineBorder(Color.BLACK, 2),
+                new EmptyBorder(15, 15, 15, 15)));
         resultArea.setBackground(Color.WHITE);
-        
+
         JScrollPane scrollPane = new JScrollPane(resultArea);
         scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         panel.add(scrollPane, BorderLayout.CENTER);
@@ -210,14 +302,10 @@ public class CurrencyConverterApp extends JFrame {
         topPanel.setBackground(Color.WHITE);
 
         JLabel label = new JLabel("Convert to multiple currencies:");
-        label.setFont(new Font("Arial", Font.BOLD, 14));
+        label.setFont(new Font("Poppins", Font.BOLD, 14));
         topPanel.add(label);
 
-        JButton multiConvertBtn = new JButton("CONVERT ALL");
-        multiConvertBtn.setFont(new Font("Arial", Font.BOLD, 12));
-        multiConvertBtn.setBackground(Color.BLACK);
-        multiConvertBtn.setForeground(Color.BLACK);
-        multiConvertBtn.setFocusPainted(false);
+        JButton multiConvertBtn = createStyledButton("CONVERT ALL");
         multiConvertBtn.addActionListener(e -> performMultiConversion());
         topPanel.add(multiConvertBtn);
 
@@ -225,7 +313,7 @@ public class CurrencyConverterApp extends JFrame {
 
         multiConvertPanel = new JPanel(new GridLayout(0, 2, 10, 10));
         multiConvertPanel.setBackground(Color.WHITE);
-        
+
         JScrollPane scrollPane = new JScrollPane(multiConvertPanel);
         scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         panel.add(scrollPane, BorderLayout.CENTER);
@@ -240,22 +328,15 @@ public class CurrencyConverterApp extends JFrame {
 
         String[] columns = {"Time", "Amount", "From", "To", "Result"};
         historyTableModel = new DefaultTableModel(columns, 0) {
-            @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
 
         historyTable = new JTable(historyTableModel);
-        historyTable.setFont(new Font("Arial", Font.PLAIN, 12));
+        historyTable.setFont(new Font("Poppins", Font.PLAIN, 12));
         historyTable.setRowHeight(25);
-        historyTable.setGridColor(Color.BLACK);
-        historyTable.setShowGrid(true);
-        historyTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
-        historyTable.getTableHeader().setBackground(Color.BLACK);
-        historyTable.getTableHeader().setForeground(Color.BLACK);
-        historyTable.setSelectionBackground(Color.LIGHT_GRAY);
-        historyTable.setSelectionForeground(Color.BLACK);
+        historyTable.getTableHeader().setFont(new Font("Poppins", Font.BOLD, 12));
 
         JScrollPane scrollPane = new JScrollPane(historyTable);
         scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
@@ -263,17 +344,12 @@ public class CurrencyConverterApp extends JFrame {
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.setBackground(Color.WHITE);
-        
-        JButton clearButton = new JButton("CLEAR HISTORY");
-        clearButton.setFont(new Font("Arial", Font.BOLD, 12));
-        clearButton.setBackground(Color.BLACK);
-        clearButton.setForeground(Color.BLACK);
-        clearButton.setFocusPainted(false);
+
+        JButton clearButton = createStyledButton("CLEAR HISTORY");
         clearButton.addActionListener(e -> historyTableModel.setRowCount(0));
         buttonPanel.add(clearButton);
 
         panel.add(buttonPanel, BorderLayout.SOUTH);
-
         return panel;
     }
 
@@ -283,16 +359,14 @@ public class CurrencyConverterApp extends JFrame {
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         JLabel label = new JLabel("Favorite Currency Pairs");
-        label.setFont(new Font("Arial", Font.BOLD, 16));
-        label.setBorder(new EmptyBorder(0, 0, 10, 0));
+        label.setFont(new Font("Poppins", Font.BOLD, 16));
         panel.add(label, BorderLayout.NORTH);
 
         DefaultListModel<String> favListModel = new DefaultListModel<>();
         JList<String> favList = new JList<>(favListModel);
-        favList.setFont(new Font("Arial", Font.PLAIN, 14));
+        favList.setFont(new Font("Poppins", Font.PLAIN, 14));
         favList.setSelectionBackground(Color.LIGHT_GRAY);
         favList.setSelectionForeground(Color.BLACK);
-        favList.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         JScrollPane scrollPane = new JScrollPane(favList);
         scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
@@ -301,24 +375,14 @@ public class CurrencyConverterApp extends JFrame {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         buttonPanel.setBackground(Color.WHITE);
 
-        JButton addButton = new JButton("ADD CURRENT PAIR");
-        addButton.setFont(new Font("Arial", Font.BOLD, 12));
-        addButton.setBackground(Color.BLACK);
-        addButton.setForeground(Color.WHITE);
-        addButton.setFocusPainted(false);
+        JButton addButton = createStyledButton("ADD CURRENT PAIR");
         addButton.addActionListener(e -> {
             String pair = fromCurrency.getSelectedItem() + " → " + toCurrency.getSelectedItem();
-            if (favoritePairs.add(pair)) {
-                favListModel.addElement(pair);
-            }
+            if (favoritePairs.add(pair)) favListModel.addElement(pair);
         });
         buttonPanel.add(addButton);
 
-        JButton removeButton = new JButton("REMOVE SELECTED");
-        removeButton.setFont(new Font("Arial", Font.BOLD, 12));
-        removeButton.setBackground(Color.BLACK);
-        removeButton.setForeground(Color.WHITE);
-        removeButton.setFocusPainted(false);
+        JButton removeButton = createStyledButton("REMOVE SELECTED");
         removeButton.addActionListener(e -> {
             String selected = favList.getSelectedValue();
             if (selected != null) {
@@ -329,7 +393,6 @@ public class CurrencyConverterApp extends JFrame {
         buttonPanel.add(removeButton);
 
         panel.add(buttonPanel, BorderLayout.SOUTH);
-
         return panel;
     }
 
@@ -353,24 +416,22 @@ public class CurrencyConverterApp extends JFrame {
             output.append("═══════════════════════════════════════════\n");
             output.append("  CONVERSION RESULT\n");
             output.append("═══════════════════════════════════════════\n\n");
-            output.append(String.format("  %s %s = %s %s\n\n", 
-                df.format(amount), from, df.format(result), to));
+            output.append(String.format("  %s %s = %s %s\n\n",
+                    df.format(amount), from, df.format(result), to));
             output.append(String.format("  Exchange Rate: 1 %s = %.4f %s\n", from, rate, to));
-            output.append(String.format("  Inverse Rate: 1 %s = %.4f %s\n\n", to, 1/rate, from));
+            output.append(String.format("  Inverse Rate: 1 %s = %.4f %s\n\n", to, 1 / rate, from));
             output.append("═══════════════════════════════════════════\n");
 
             resultArea.setText(output.toString());
 
-            // Add to history
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
             historyTableModel.addRow(new Object[]{
-                sdf.format(new Date()),
-                df.format(amount),
-                from,
-                to,
-                df.format(result)
+                    sdf.format(new Date()),
+                    df.format(amount),
+                    from,
+                    to,
+                    df.format(result)
             });
-
         } catch (NumberFormatException ex) {
             resultArea.setText("ERROR: Please enter a valid number");
         }
@@ -380,25 +441,23 @@ public class CurrencyConverterApp extends JFrame {
         try {
             double amount = Double.parseDouble(amountField.getText().replace(",", ""));
             String from = (String) fromCurrency.getSelectedItem();
-
             multiConvertPanel.removeAll();
 
             for (String currency : exchangeRates.keySet()) {
                 if (!currency.equals(from)) {
                     double result = convertCurrency(amount, from, currency);
-                    
+
                     JPanel itemPanel = new JPanel(new BorderLayout(5, 5));
                     itemPanel.setBackground(Color.WHITE);
                     itemPanel.setBorder(BorderFactory.createCompoundBorder(
-                        BorderFactory.createLineBorder(Color.BLACK, 1),
-                        new EmptyBorder(10, 10, 10, 10)
-                    ));
+                            BorderFactory.createLineBorder(Color.BLACK, 1),
+                            new EmptyBorder(10, 10, 10, 10)));
 
                     JLabel currencyLabel = new JLabel(currency);
-                    currencyLabel.setFont(new Font("Arial", Font.BOLD, 16));
-                    
+                    currencyLabel.setFont(new Font("Poppins", Font.BOLD, 16));
+
                     JLabel resultLabel = new JLabel(df.format(result));
-                    resultLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+                    resultLabel.setFont(new Font("Poppins", Font.PLAIN, 14));
                     resultLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
                     itemPanel.add(currencyLabel, BorderLayout.WEST);
@@ -410,10 +469,9 @@ public class CurrencyConverterApp extends JFrame {
 
             multiConvertPanel.revalidate();
             multiConvertPanel.repaint();
-
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid amount", 
-                "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter a valid amount",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
