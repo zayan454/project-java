@@ -310,7 +310,7 @@ public class CurrencyConverterApp extends JFrame {
         panel.setBackground(Color.WHITE);
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        String[] columns = {"Time", "Amount", "From", "To", "Result"};
+        String[] columns = { "Time", "Amount", "From", "To", "Result" };
         historyTableModel = new DefaultTableModel(columns, 0) {
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -336,151 +336,152 @@ public class CurrencyConverterApp extends JFrame {
         panel.add(buttonPanel, BorderLayout.SOUTH);
         return panel;
     }
-private JPanel createLeaderboardPanel() {
-    JPanel panel = new JPanel(new BorderLayout(10, 10));
-    panel.setBackground(Color.WHITE);
-    panel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-    // Header
-    JPanel headerPanel = new JPanel(new BorderLayout());
-    headerPanel.setBackground(Color.WHITE);
-    
-    JLabel titleLabel = new JLabel("Currency Strength Leaderboard");
-    titleLabel.setFont(new Font("Poppins", Font.BOLD, 18));
-    headerPanel.add(titleLabel, BorderLayout.WEST);
-    
-    JLabel infoLabel = new JLabel("(Ranked by value relative to 1 USD)");
-    infoLabel.setFont(new Font("Poppins", Font.ITALIC, 12));
-    infoLabel.setForeground(Color.GRAY);
-    headerPanel.add(infoLabel, BorderLayout.SOUTH);
-    
-    panel.add(headerPanel, BorderLayout.NORTH);
+    private JPanel createLeaderboardPanel() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-    // Create leaderboard table
-    String[] columns = {"Rank", "Currency", "Value (per 1 USD)", "Strength"};
-    DefaultTableModel leaderboardModel = new DefaultTableModel(columns, 0) {
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
+        // Header
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setBackground(Color.WHITE);
 
-    // Sort currencies by exchange rate (ascending = stronger)
-    List<Map.Entry<String, Double>> sortedCurrencies = new ArrayList<>(exchangeRates.entrySet());
-    sortedCurrencies.sort(Map.Entry.comparingByValue());
+        JLabel titleLabel = new JLabel("Currency Strength Leaderboard");
+        titleLabel.setFont(new Font("Poppins", Font.BOLD, 18));
+        headerPanel.add(titleLabel, BorderLayout.WEST);
 
-    // Populate table
-    int rank = 1;
-    for (Map.Entry<String, Double> entry : sortedCurrencies) {
-        String currency = entry.getKey();
-        double rate = entry.getValue();
-        
-        String strength;
-        if (rate < 1.0) {
-            strength = "Very Strong";
-        } else if (rate < 10.0) {
-            strength = "Strong";
-        } else if (rate < 100.0) {
-            strength = "Moderate";
-        } else if (rate < 1000.0) {
-            strength = "Weak";
-        } else {
-            strength = "Very Weak";
-        }
-        
-        leaderboardModel.addRow(new Object[]{
-            rank++,
-            currency,
-            df.format(rate),
-            strength
-        });
-    }
+        JLabel infoLabel = new JLabel("(Ranked by value relative to 1 USD)");
+        infoLabel.setFont(new Font("Poppins", Font.ITALIC, 12));
+        infoLabel.setForeground(Color.GRAY);
+        headerPanel.add(infoLabel, BorderLayout.SOUTH);
 
-    JTable leaderboardTable = new JTable(leaderboardModel);
-    leaderboardTable.setFont(new Font("Poppins", Font.PLAIN, 12));
-    leaderboardTable.setRowHeight(30);
-    leaderboardTable.getTableHeader().setFont(new Font("Poppins", Font.BOLD, 13));
-    leaderboardTable.getTableHeader().setBackground(Color.BLACK);
-    leaderboardTable.getTableHeader().setForeground(Color.BLACK);
-    
-    // Set column widths
-    leaderboardTable.getColumnModel().getColumn(0).setPreferredWidth(60);
-    leaderboardTable.getColumnModel().getColumn(1).setPreferredWidth(300);
-    leaderboardTable.getColumnModel().getColumn(2).setPreferredWidth(150);
-    leaderboardTable.getColumnModel().getColumn(3).setPreferredWidth(120);
-    
-    // Color-code rows based on strength
-    leaderboardTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value,
-                boolean isSelected, boolean hasFocus, int row, int column) {
-            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            
-            if (!isSelected) {
-                String strength = (String) table.getValueAt(row, 3);
-                switch (strength) {
-                    case "Very Strong":
-                        c.setBackground(new Color(200, 255, 200));
-                        break;
-                    case "Strong":
-                        c.setBackground(new Color(220, 255, 220));
-                        break;
-                    case "Moderate":
-                        c.setBackground(new Color(255, 255, 220));
-                        break;
-                    case "Weak":
-                        c.setBackground(new Color(255, 230, 200));
-                        break;
-                    case "Very Weak":
-                        c.setBackground(new Color(255, 200, 200));
-                        break;
-                    default:
-                        c.setBackground(Color.WHITE);
-                }
+        panel.add(headerPanel, BorderLayout.NORTH);
+
+        // Create leaderboard table
+        String[] columns = { "Rank", "Currency", "Value (per 1 USD)", "Strength" };
+        DefaultTableModel leaderboardModel = new DefaultTableModel(columns, 0) {
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
-            
-            return c;
+        };
+
+        // Sort currencies by exchange rate (ascending = stronger)
+        List<Map.Entry<String, Double>> sortedCurrencies = new ArrayList<>(exchangeRates.entrySet());
+        sortedCurrencies.sort(Map.Entry.comparingByValue());
+
+        // Populate table
+        int rank = 1;
+        for (Map.Entry<String, Double> entry : sortedCurrencies) {
+            String currency = entry.getKey();
+            double rate = entry.getValue();
+
+            String strength;
+            if (rate < 1.0) {
+                strength = "Very Strong";
+            } else if (rate < 10.0) {
+                strength = "Strong";
+            } else if (rate < 100.0) {
+                strength = "Moderate";
+            } else if (rate < 1000.0) {
+                strength = "Weak";
+            } else {
+                strength = "Very Weak";
+            }
+
+            leaderboardModel.addRow(new Object[] {
+                    rank++,
+                    currency,
+                    df.format(rate),
+                    strength
+            });
         }
-    });
 
-    JScrollPane scrollPane = new JScrollPane(leaderboardTable);
-    scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-    panel.add(scrollPane, BorderLayout.CENTER);
+        JTable leaderboardTable = new JTable(leaderboardModel);
+        leaderboardTable.setFont(new Font("Poppins", Font.PLAIN, 12));
+        leaderboardTable.setRowHeight(30);
+        leaderboardTable.getTableHeader().setFont(new Font("Poppins", Font.BOLD, 13));
+        leaderboardTable.getTableHeader().setForeground(Color.BLACK);
 
-    // Footer with legend
-    JPanel legendPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-    legendPanel.setBackground(Color.WHITE);
-    legendPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
-    
-    String[] legends = {"Very Strong: < 1", "Strong: 1-10", "Moderate: 10-100", "Weak: 100-1000", "Very Weak: > 1000"};
-    Color[] legendColors = {
-        new Color(200, 255, 200),
-        new Color(220, 255, 220),
-        new Color(255, 255, 220),
-        new Color(255, 230, 200),
-        new Color(255, 200, 200)
-    };
-    
-    for (int i = 0; i < legends.length; i++) {
-        JPanel legendItem = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
-        legendItem.setBackground(Color.WHITE);
-        
-        JPanel colorBox = new JPanel();
-        colorBox.setPreferredSize(new Dimension(20, 20));
-        colorBox.setBackground(legendColors[i]);
-        colorBox.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        
-        JLabel legendLabel = new JLabel(legends[i]);
-        legendLabel.setFont(new Font("Poppins", Font.PLAIN, 11));
-        
-        legendItem.add(colorBox);
-        legendItem.add(legendLabel);
-        legendPanel.add(legendItem);
+        // Set column widths
+        leaderboardTable.getColumnModel().getColumn(0).setPreferredWidth(60);
+        leaderboardTable.getColumnModel().getColumn(1).setPreferredWidth(300);
+        leaderboardTable.getColumnModel().getColumn(2).setPreferredWidth(150);
+        leaderboardTable.getColumnModel().getColumn(3).setPreferredWidth(120);
+
+        // Color-code rows based on strength
+        leaderboardTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                if (!isSelected) {
+                    String strength = (String) table.getValueAt(row, 3);
+                    switch (strength) {
+                        case "Very Strong":
+                            c.setBackground(new Color(200, 255, 200));
+                            break;
+                        case "Strong":
+                            c.setBackground(new Color(220, 255, 220));
+                            break;
+                        case "Moderate":
+                            c.setBackground(new Color(255, 255, 220));
+                            break;
+                        case "Weak":
+                            c.setBackground(new Color(255, 230, 200));
+                            break;
+                        case "Very Weak":
+                            c.setBackground(new Color(255, 200, 200));
+                            break;
+                        default:
+                            c.setBackground(Color.WHITE);
+                    }
+                }
+
+                return c;
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(leaderboardTable);
+        scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        // Footer with legend
+        JPanel legendPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        legendPanel.setBackground(Color.WHITE);
+        legendPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
+
+        String[] legends = { "Very Strong: < 1", "Strong: 1-10", "Moderate: 10-100", "Weak: 100-1000",
+                "Very Weak: > 1000" };
+        Color[] legendColors = {
+                new Color(200, 255, 200),
+                new Color(220, 255, 220),
+                new Color(255, 255, 220),
+                new Color(255, 230, 200),
+                new Color(255, 200, 200)
+        };
+
+        for (int i = 0; i < legends.length; i++) {
+            JPanel legendItem = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+            legendItem.setBackground(Color.WHITE);
+
+            JPanel colorBox = new JPanel();
+            colorBox.setPreferredSize(new Dimension(20, 20));
+            colorBox.setBackground(legendColors[i]);
+            colorBox.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+
+            JLabel legendLabel = new JLabel(legends[i]);
+            legendLabel.setFont(new Font("Poppins", Font.PLAIN, 11));
+
+            legendItem.add(colorBox);
+            legendItem.add(legendLabel);
+            legendPanel.add(legendItem);
+        }
+
+        panel.add(legendPanel, BorderLayout.SOUTH);
+
+        return panel;
     }
-    
-    panel.add(legendPanel, BorderLayout.SOUTH);
-    
-    return panel;
-}
 
     private void swapCurrencies() {
         int fromIndex = fromCurrency.getSelectedIndex();
@@ -511,7 +512,7 @@ private JPanel createLeaderboardPanel() {
             resultArea.setText(output.toString());
 
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            historyTableModel.addRow(new Object[]{
+            historyTableModel.addRow(new Object[] {
                     sdf.format(new Date()),
                     df.format(amount),
                     from,
